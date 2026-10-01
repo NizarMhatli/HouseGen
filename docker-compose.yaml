@@ -1,0 +1,30 @@
+services:
+  housegen:
+    build: .
+    container_name: housegen
+    network_mode: host
+    privileged: true
+    runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=55
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/10_nvidia.json
+      - EGL_PLATFORM=device
+    volumes:
+      - ./workspace:/ros2_ws/src
+      - ./build:/ros2_ws/build
+      - ./install:/ros2_ws/install
+      - ./log:/ros2_ws/log
+      - ./config/.bash_history:/root/.bash_history
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev:/dev
+      # NVIDIA EGL passthrough
+      - /usr/share/glvnd/egl_vendor.d:/usr/share/glvnd/egl_vendor.d:ro
+      - /usr/share/egl/egl_external_platform.d:/usr/share/egl/egl_external_platform.d:ro
+    stdin_open: true
+    tty: true
+    restart: unless-stopped

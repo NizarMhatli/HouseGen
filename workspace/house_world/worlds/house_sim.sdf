@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<!--
+  Placeholder world — replace by running HouseGen:
+
+    make world                        # generates family_house (default)
+    make world SCENE=small_apartment  # generates small apartment
+    make world SCENE=random_house     # generates a fully random house
+
+  Or from inside the Docker container:
+    ros2 launch house_world generate.launch.py scene:=family_house
+-->
+<sdf version="1.8">
+  <world name="house_sim">
+
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.85 0.85 0.80 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.3 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.4 0.4 0.4 1</ambient>
+            <diffuse>0.4 0.4 0.4 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Run 'make world' to replace this placeholder with a generated house -->
+    <model name="placeholder_box">
+      <static>true</static>
+      <pose>0 0 0.5 0 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2 2 1</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2 2 1</size></box></geometry>
+          <material>
+            <ambient>0.3 0.5 0.8 1</ambient>
+            <diffuse>0.3 0.5 0.8 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>

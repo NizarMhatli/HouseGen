@@ -1,0 +1,28 @@
+# ROS 2 build artifacts
+build/
+install/
+log/
+
+# Blender export output (generated worlds go here before being moved to workspace)
+blender/export/
+blender/__pycache__/
+blender/**/__pycache__/
+
+# Generated world files (keep only placeholder and tracked worlds)
+workspace/house_world/worlds/*.obj
+workspace/house_world/worlds/*/
+
+# Docker
+config/.bash_history
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+
+# VS Code
+.vscode/
+
+# Blender backups
+*.blend1
