@@ -230,3 +230,9 @@ Edit `blender/scenes/base.py` to change global defaults:
 - [ ] Batch generation script (generate N worlds at once)
 - [ ] ROS 2 service to trigger generation from within a running simulation
 - [ ] Nav2 integration — auto-generate costmaps from `house_meta.json`
+
+## TODO
+
+- [ ] Add better looking assets and models (replace box proxies with real `.blend` meshes)
+- [ ] Add highlighted objects in random locations to be picked up by robots
+- [ ] Add more varied room designs and locations
